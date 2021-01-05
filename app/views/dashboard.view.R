@@ -29,7 +29,7 @@ dashboard.view.body <- dashboardBody(
       h2('tutaj wyniki wytrenowania modelu')
     ),
     tabItem(
-      tabName = 'info',
+      tabName = 'about',
       h2('tutaj info o projekcie')
     )
   )

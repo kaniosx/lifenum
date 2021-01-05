@@ -11,14 +11,13 @@ RUN apt-get update && apt-get install -y \
     xtail \
     wget
 
-
 RUN wget --no-verbose https://download3.rstudio.org/ubuntu-14.04/x86_64/VERSION -O "version.txt" && \
     VERSION=$(cat version.txt)  && \
     wget --no-verbose "https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-$VERSION-amd64.deb" -O ss-latest.deb && \
     gdebi -n ss-latest.deb && \
     rm -f version.txt ss-latest.deb && \
     . /etc/environment && \
-    R -e "install.packages(c('shiny', 'rmarkdown'), repos='$MRAN')" && \
+    R -e "install.packages(c('shiny', 'rmarkdown', 'shinydashboard'), repos='$MRAN')" && \
     cp -R /usr/local/lib/R/site-library/shiny/examples/* /srv/shiny-server/ && \
     chown shiny:shiny /var/lib/shiny-server
 
