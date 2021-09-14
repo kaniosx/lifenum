@@ -1,4 +1,13 @@
 dashboard.view.sideBar <- dashboardSidebar(
+  selectInput(
+    'dataset',
+    'Choose dataset',
+    c(
+      'Heart failure' = 'heartFailure',
+      'Diabetes' = 'diabetes'
+    ),
+    'heartFailure',
+  ),
   sidebarMenu(
     menuItem(
       'Data',

@@ -1,0 +1,26 @@
+{
+    "id": "1CF3D934",
+    "path": "~/Documents/kanios/machinelearning/LifeNum/app/views/ui.R",
+    "project_path": "views/ui.R",
+    "type": "r_source",
+    "hash": "4018398202",
+    "contents": "",
+    "dirty": false,
+    "created": 1613320670197.0,
+    "source_on_save": false,
+    "relative_order": 7,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "1,14",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1613319015,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1613319015,
+    "read_only": false,
+    "read_only_alternatives": []
+}

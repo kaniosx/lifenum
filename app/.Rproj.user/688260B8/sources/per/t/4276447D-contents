@@ -3,6 +3,7 @@
 visualization.getAxisOptions <- function(key) {
   switch(
     key,
+    'breastCancer' = colnames(data.breastCancerData),
     'heartFailure' = colnames(data.heartFailureData),
     'diabetes' = colnames(data.diabetesData)
   )
@@ -26,6 +27,6 @@ visualization.visualize <- function(data, x, y) {
     ggplot(
       data,
       aes(x = .data[[x]], y = .data[[y]])
-    ) + geom_line()
+    ) + geom_point()
   )
 }

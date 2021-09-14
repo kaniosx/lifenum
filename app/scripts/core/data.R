@@ -1,5 +1,4 @@
-# Title     : TODO
-# Objective : TODO
-# Created by: mikolaj.kania
-# Created on: 06/01/2021
+# Read data module
 
+data.heartFailureData <- read.csv('data/heartfailure.csv')
+data.diabetesData <- read.csv('data/diabetes.csv')

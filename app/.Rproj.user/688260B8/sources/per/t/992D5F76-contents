@@ -2,7 +2,6 @@ source('scripts/core/data.R',               local = TRUE)
 source('scripts/datainfo/description.R',    local = TRUE)
 source('scripts/datainfo/rawdata.R',        local = TRUE)
 source('scripts/datainfo/visualization.R',  local = TRUE)
-source('scripts/datainfo/analysis.R',       local = TRUE)
 
 library(ggplot2)
 
@@ -27,9 +26,5 @@ server <- function(input, output, session) {
 
   output$selectedRawData <- renderDataTable({
     rawdata.load(input$dataset)
-  })
-  
-  output$selectedDataAnalysis <- renderText({
-    paste(analysis.analize(input$dataset))
   })
 }
