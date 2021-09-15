@@ -29,7 +29,7 @@ server <- function(input, output, session) {
     rawdata.load(input$dataset)
   })
   
-  output$selectedDataAnalysis <- renderText({
-    paste(analysis.analize(input$dataset))
+  output$selectedDataAnalysis <- renderUI({
+    analysis.analize(input$dataset)
   })
 }

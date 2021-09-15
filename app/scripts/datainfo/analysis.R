@@ -1,15 +1,24 @@
 analysis.analize <- function(key) {
   switch(
     key,
-    'diabetes' = 'Diabetes',
-    'heartFailure' = 'Heart Failure'
+    'diabetes' = analysis.analizeDiabetes.getMarkdown(),
+    'heartFailure' = analysis.analizeHeartFailure.getMarkdown()
   )
 }
 
-analysis.analizeDiabetes <- function() {
-  'Diabetes'
+analysis.analizeDiabetes.getMarkdown <- function() {
+  analysis.getMarkdown('diabetes.Rmd')
 }
 
-analysis.analizeHeartFailure <- function() {
-  'Heart Failure'
+analysis.analizeHeartFailure.getMarkdown <- function() {
+  analysis.getMarkdown('heartfailure.Rmd')
+}
+
+analysis.getMarkdown <- function(filename) {
+  inclRmd(
+    paste0(
+      'scripts/datainfo/analysis_markdown/',
+      filename
+    )
+  )
 }

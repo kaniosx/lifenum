@@ -37,7 +37,7 @@ datainfo.view.visualizationPanel <- tabPanel(
 
 datainfo.view.analysisPanel <- tabPanel(
   title = 'Analysis',
-  htmlOutput('selectedDataAnalysis')
+  uiOutput('selectedDataAnalysis')
 )
 
 datainfo.view.summaryPanel <- tabPanel(
