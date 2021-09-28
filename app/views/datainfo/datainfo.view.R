@@ -24,7 +24,7 @@ datainfo.view.visualizationPanel <- tabPanel(
         ''
       ),
       actionButton(
-        'visualizeAction',
+        'visualizeEvent',
         'Visualize'
       )
     ),

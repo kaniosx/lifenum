@@ -3,6 +3,25 @@ title: "diabetes"
 output: html_document
 ---
 
+Basic informations about the dataset:
+
+Age of the patients distribution:
+
+```{r}
+
+renderPlot({
+  hist(
+    data.diabetesData$Age,
+    main = 'Age distribution',
+    xlab = 'Age',
+    col = 'orange'
+  )
+})
+
+```
+
+Age
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```

@@ -21,8 +21,8 @@ dashboard.view.sideBar <- dashboardSidebar(
     ),
     menuItem(
       'About',
-        tabName = 'about',
-        icon = icon('medrt')
+      tabName = 'about',
+      icon = icon('medrt')
     )
   )
 )
@@ -35,7 +35,7 @@ dashboard.view.body <- dashboardBody(
     ),
     tabItem(
       tabName = 'model',
-      h2('tutaj wyniki wytrenowania modelu')
+      model.view.fluidRow
     ),
     tabItem(
       tabName = 'about',

@@ -1,17 +1,21 @@
-source('scripts/core/data.R',               local = TRUE)
-source('scripts/datainfo/description.R',    local = TRUE)
-source('scripts/datainfo/rawdata.R',        local = TRUE)
-source('scripts/datainfo/visualization.R',  local = TRUE)
-source('scripts/datainfo/analysis.R',       local = TRUE)
+source('scripts/core/data.R',                               local = TRUE)
+source('scripts/datainfo/description.R',                    local = TRUE)
+source('scripts/datainfo/rawdata.R',                        local = TRUE)
+source('scripts/datainfo/visualization.R',                  local = TRUE)
+source('scripts/datainfo/analysis.R',                       local = TRUE)
+source('scripts/model/switcher.R',                          local = TRUE)
+source('scripts/model/diabetes/logistic_regression.R',      local = TRUE)
+source('scripts/model/heart_failure/logistic_regression.R', local = TRUE)
 
 library(ggplot2)
+library(caTools)
 
 server <- function(input, output, session) {
   observe({
     visualization.updateVisualizationSelect(session, input$dataset)  
   })
   
-  observeEvent(input$visualizeAction, {
+  observeEvent(input$visualizeEvent, {
     output$visualization <- renderPlot({ 
       visualization.visualize(
         rawdata.load(input$dataset),
@@ -31,5 +35,31 @@ server <- function(input, output, session) {
   
   output$selectedDataAnalysis <- renderUI({
     analysis.analize(input$dataset)
+  })
+  
+  output$selectedDataModelForm <- renderUI({
+    model.view.getForm(input$dataset)
+  })
+  
+  output$userFileData <- renderTable({
+    req(input$userFile)
+    
+    tryCatch({
+      df <- read.csv(input$userFile$datapath, sep = ',')
+    }, error = function(e) {
+      stop(safeError(e))
+    })
+    
+    df
+  })
+  
+  observeEvent(input$trainModelEvent, {
+    output$trainModelStatusMessage <- renderText('Model successfully trained!')
+    output$confusionMatrix <- renderTable({
+      model.trainModel(
+        input$modelType,
+        input$dataset
+      )
+    }, caption = 'Confusion matrix')
   })
 }

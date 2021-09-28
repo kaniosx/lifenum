@@ -1,7 +1,7 @@
 library(shinydashboard)
-library(shiny)
 
 source('views/datainfo/datainfo.view.R', local = TRUE)
+source('views/model/model.view.R', local = TRUE)
 source('views/dashboard.view.R', local = TRUE)
 
 ui <- dashboardPage(
