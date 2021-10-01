@@ -7,7 +7,7 @@ data[2] <- lapply(data[2], function(x) as.integer(x == 'Male'))
 
 set.seed(Sys.time())
 
-split <- sample.split(data$class, SplitRatio = 0.75)
+split <- sample.split(data$class, SplitRatio = 0.998)
 trainingSet <- subset(data, split == TRUE)
 testSet <- subset(data, split == FALSE)
 
@@ -27,6 +27,10 @@ probPred <- predict(
   newdata = testSet[-ncol(testSet)]
 )
 
-yPred <- ifelse(probPred > 0.5, 1, 0)
+print(probPred)
 
-confusionMatrix <- table(testSet[, ncol(testSet)], yPred)
+# yPred <- ifelse(probPred > 0.5, 1, 0)
+# 
+# print(yPred)
+
+# confusionMatrix <- table(testSet[, ncol(testSet)], yPred)

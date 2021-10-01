@@ -42,7 +42,13 @@ model.view.userDataPanel <- tabPanel(
 
 model.view.formPanel <- tabPanel(
   title = 'Model form',
-  uiOutput('selectedDataModelForm')
+  uiOutput('selectedDataModelForm'),
+  actionButton(
+    'checkFormEvent',
+    'Check'
+  ),
+  tableOutput('formTable'),
+  textOutput('formScore')
 )
 
 model.view.fluidRow <- fluidRow(
@@ -53,7 +59,6 @@ model.view.fluidRow <- fluidRow(
     model.view.userDataPanel
   )
 )
-
 
 model.view.diabetesForm <- fluidPage(
   numericInput(
@@ -149,10 +154,6 @@ model.view.diabetesForm <- fluidPage(
     'Obesity:',
     c('Yes' = 'Yes', 'No' = 'No'),
     selected = 'No'
-  ),
-  actionButton(
-    'diabetesFormAction',
-    'Check'
   )
 )
 

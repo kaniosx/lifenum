@@ -7,7 +7,6 @@ model.trainModel <- function(modelType, moduleName) {
       trainingSet <- subset(data, split == TRUE)
       testSet <- subset(data, split == FALSE)
       classifier <- model.diabetes.logisticRegression.getClassifier(trainingSet)
-
       return(
         model.diabetes.logisticRegression.getConfusionMatrix(
           classifier, testSet
@@ -30,8 +29,20 @@ model.trainModel <- function(modelType, moduleName) {
           classifier, testSet
         )
       )
+    }
+  }
+}
 
-      # return(model.heartFailure.logisticRegression.getClassifier())
+model.getClassifier <- function (modelType, moduleName) {
+  if (moduleName == 'diabetes') {
+    if (modelType == 'logisticRegression') {
+      data <- model.diabetes.logisticRegression.preprocessData(data.diabetesData)
+      return(model.diabetes.logisticRegression.getClassifier(data))
+    }
+  }
+
+  if (moduleName == 'heartFailure') {
+    if (modelType == 'logisticRegression') {
     }
   }
 }

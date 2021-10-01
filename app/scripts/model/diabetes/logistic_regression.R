@@ -12,7 +12,7 @@ model.diabetes.logisticRegression.getSampleSplit <- function (data) {
 }
 
 model.diabetes.logisticRegression.getClassifier <- function (trainingSet) {
-  trainingSet$Age <- scale(trainingSet$Age)
+  #trainingSet$Age <- scale(trainingSet$Age)
 
   classifier <- glm(
     formula = class ~ .,
@@ -24,7 +24,7 @@ model.diabetes.logisticRegression.getClassifier <- function (trainingSet) {
 }
 
 model.diabetes.logisticRegression.getConfusionMatrix <- function (classifier, testSet) {
-  testSet$Age <- scale(testSet$Age)
+  # testSet$Age <- scale(testSet$Age)
   
   probPred <- predict(
     classifier,

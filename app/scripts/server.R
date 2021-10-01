@@ -5,6 +5,7 @@ source('scripts/datainfo/visualization.R',                  local = TRUE)
 source('scripts/datainfo/analysis.R',                       local = TRUE)
 source('scripts/model/switcher.R',                          local = TRUE)
 source('scripts/model/diabetes/logistic_regression.R',      local = TRUE)
+source('scripts/model/diabetes/from_form.R',                local = TRUE)
 source('scripts/model/heart_failure/logistic_regression.R', local = TRUE)
 
 library(ggplot2)
@@ -61,5 +62,31 @@ server <- function(input, output, session) {
         input$dataset
       )
     }, caption = 'Confusion matrix')
+  })
+  
+  observeEvent(input$checkFormEvent, {
+    if (input$dataset == 'diabetes') {
+      output$formTable <- renderTable({
+        model.diabetes.fromForm.getRow(input)
+      }, caption = 'Test')
+
+      output$formScore <- renderPrint({
+        classifier <- model.getClassifier(
+          input$modelType,
+          input$dataset
+        )
+        row <- model.diabetes.fromForm.getRow(input)
+        model.diabetes.fromForm.predict(classifier, row)
+      })
+    }
+    
+    if (input$dataset == 'heartFailure') {
+      output$formTable <- renderTable({
+        model.heartFailure.fromForm.getRow(input)
+      }, caption = 'Test')
+      
+      output$formScore <- renderText({
+      })
+    }
   })
 }
