@@ -27,7 +27,7 @@ model.view.trainingPanel <- tabPanel(
 model.view.userDataPanel <- tabPanel(
   title = 'Upload test data',
   fileInput(
-    'userFile', 
+    'userFile',
     'Upload your CSV File',
     multiple = FALSE,
     accept = c(
@@ -36,8 +36,8 @@ model.view.userDataPanel <- tabPanel(
       '.csv'
     )
   ),
-  actionButton('button', 'Generate answers'),
-  tableOutput('userFileData')
+  actionButton('userFileEvent', 'Generate answers'),
+  tableOutput('userFileOutput')
 )
 
 model.view.formPanel <- tabPanel(
@@ -166,7 +166,8 @@ model.view.heartFailureForm <- fluidPage(
   selectInput(
     'heartFailureGender',
     'Gender:',
-    c('Male' = 'Male', 'Female' = 'Female')
+    c('Male' = 1, 'Female' = 0),
+    selected = 1
   ),
   selectInput(
     'heartFailureAnaemia',
@@ -216,10 +217,6 @@ model.view.heartFailureForm <- fluidPage(
     'Smoking:',
     c('Yes' = 1, 'No' = 0),
     selected = 0
-  ),
-  actionButton(
-    'heartFailureFormAction',
-    'Check'
   )
 )
 

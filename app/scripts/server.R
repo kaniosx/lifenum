@@ -7,9 +7,13 @@ source('scripts/model/switcher.R',                          local = TRUE)
 source('scripts/model/diabetes/logistic_regression.R',      local = TRUE)
 source('scripts/model/diabetes/from_form.R',                local = TRUE)
 source('scripts/model/heart_failure/logistic_regression.R', local = TRUE)
+source('scripts/model/heart_failure/knn.R',                 local = TRUE)
+source('scripts/model/heart_failure/from_form.R',           local = TRUE)
+source('scripts/model/heart_failure/from_user_file.R',      local = TRUE)
 
 library(ggplot2)
 library(caTools)
+library(class)
 
 server <- function(input, output, session) {
   observe({
@@ -24,6 +28,10 @@ server <- function(input, output, session) {
         input$visualizationY
       )
     })
+  })
+
+  output$about <- renderText({
+    about.view.description
   })
 
   output$selectedDataDescription <- renderText({
@@ -42,18 +50,6 @@ server <- function(input, output, session) {
     model.view.getForm(input$dataset)
   })
   
-  output$userFileData <- renderTable({
-    req(input$userFile)
-    
-    tryCatch({
-      df <- read.csv(input$userFile$datapath, sep = ',')
-    }, error = function(e) {
-      stop(safeError(e))
-    })
-    
-    df
-  })
-  
   observeEvent(input$trainModelEvent, {
     output$trainModelStatusMessage <- renderText('Model successfully trained!')
     output$confusionMatrix <- renderTable({
@@ -65,28 +61,25 @@ server <- function(input, output, session) {
   })
   
   observeEvent(input$checkFormEvent, {
-    if (input$dataset == 'diabetes') {
-      output$formTable <- renderTable({
-        model.diabetes.fromForm.getRow(input)
-      }, caption = 'Test')
+    output$formTable <- renderTable({
+      model.predictFromForm.getRow(input)
+    }, caption = 'Your data')
 
-      output$formScore <- renderPrint({
-        classifier <- model.getClassifier(
-          input$modelType,
-          input$dataset
-        )
-        row <- model.diabetes.fromForm.getRow(input)
-        model.diabetes.fromForm.predict(classifier, row)
-      })
-    }
-    
-    if (input$dataset == 'heartFailure') {
-      output$formTable <- renderTable({
-        model.heartFailure.fromForm.getRow(input)
-      }, caption = 'Test')
-      
-      output$formScore <- renderText({
-      })
-    }
+    output$formScore <- renderText({
+      prediction <- model.predictFromForm.getPredicition(input)
+
+      if (prediction == 1) {
+        return('Warning! The answer is positive with prediction = 1!')
+      }
+
+      return ('Prediction is negative (0).')
+    })
+  })
+
+  observeEvent(input$userFileEvent, {
+    output$userFileOutput <- renderTable({
+      req(input$userFile)
+      model.predictFromUserFile.getData(input$dataset, input$modelType, input$userFile$datapath)
+    })
   })
 }

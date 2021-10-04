@@ -39,7 +39,7 @@ dashboard.view.body <- dashboardBody(
     ),
     tabItem(
       tabName = 'about',
-      h2('tutaj info o projekcie')
+      htmlOutput('about')
     )
   )
 )

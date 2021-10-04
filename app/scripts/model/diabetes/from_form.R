@@ -22,13 +22,12 @@ model.diabetes.fromForm.getRow <- function(input) {
   model.diabetes.logisticRegression.preprocessData(datarow)
 }
 
-model.diabetes.fromForm.predict <- function(classifier, testSet) {
-  #testSet$Age <- scale(testSet$Age)
-
+model.diabetes.fromForm.logisticRegression.predict <- function(classifier, testSet) {
   probPred <- predict(
     classifier,
     type = 'response',
     newdata = testSet
   )
-  probPred
+  prediction <- ifelse(probPred > 0.5, 1, 0)
+  prediction
 }
