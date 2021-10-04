@@ -11,21 +11,19 @@ visualization.getAxisOptions <- function(key) {
 visualization.updateVisualizationSelect <- function(session, inputDataset) {
   visualizationChoices <- visualization.getAxisOptions(inputDataset)
   
-  for (selectInputId in c('visualizationX', 'visualizationY')) {
-    updateSelectInput(
-      session,
-      selectInputId,
-      choices = visualizationChoices,
-      selected = head(visualizationChoices, 1)
-    )
-  }
+  updateSelectInput(
+    session,
+    'visualizationX',
+    choices = visualizationChoices,
+    selected = head(visualizationChoices, 1)
+  )
 }
 
-visualization.visualize <- function(data, x, y) {
-  return(
-    ggplot(
-      data,
-      aes(x = .data[[x]], y = .data[[y]])
-    ) + geom_line()
+visualization.visualize <- function(data, x) {
+  hist(
+    data[,x],
+    main = paste('Histogram of ', x),
+    xlab = x,
+    col = 'orange'
   )
 }

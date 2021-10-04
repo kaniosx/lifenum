@@ -13,6 +13,12 @@ model.trainModel <- function(modelType, moduleName) {
         )
       )
     }
+
+    if (modelType == 'kNeighborsClassifier') {
+      return(
+        model.diabetes.knn.getConfusionMatrix(data.diabetesData)
+      )
+    }
   }
   
   if (moduleName == 'heartFailure') {
@@ -57,17 +63,22 @@ model.getClassifier <- function (modelType, moduleName) {
 }
 
 model.predictFromForm.getPredicition <- function (input) {
-  classifier <- model.getClassifier(input$modelType, input$dataset)
   data <- model.predictFromForm.getRow(input)
 
   if (input$dataset == 'diabetes') {
     if (input$modelType == 'logisticRegression') {
+      classifier <- model.getClassifier(input$modelType, input$dataset)
       return(model.diabetes.fromForm.logisticRegression.predict(classifier, data))
+    }
+
+    if (input$modelType == 'kNeighborsClassifier') {
+      return(model.diabetes.fromForm.knn.predict(data.diabetesData, data))
     }
   }
 
   if (input$dataset == 'heartFailure') {
     if (input$modelType == 'logisticRegression') {
+      classifier <- model.getClassifier(input$modelType, input$dataset)
       return(model.heartFailure.fromForm.logisticRegression.predict(classifier, data))
     }
 
@@ -89,12 +100,28 @@ model.predictFromForm.getRow <- function(input) {
 
 model.predictFromUserFile.getData <- function (datasetName, modelType, filePath) {
   if (datasetName == 'diabetes') {
+    data <- model.diabetes.fromUserFile.load(filePath)
 
+    if (modelType == 'logisticRegression') {
+      classifier <- model.getClassifier(modelType, datasetName)
+      return(model.diabetes.fromUserFile.predict(classifier = classifier, data, modelType))
+    }
+
+    if (modelType == 'kNeighborsClassifier') {
+      return(model.diabetes.fromUserFile.predict(NULL, data, modelType))
+    }
   }
 
   if (datasetName == 'heartFailure') {
     data <- model.heartFailure.fromUserFile.load(filePath)
-    classifier <- model.getClassifier(modelType, datasetName)
-    return(model.heartFailure.fromUserFile.predict(classifier, data, modelType))
+
+    if (modelType == 'logisticRegression') {
+      classifier <- model.getClassifier(modelType, datasetName)
+      return(model.heartFailure.fromUserFile.predict(classifier, data, modelType))
+    }
+
+    if (modelType == 'kNeighborsClassifier') {
+      return(model.heartFailure.fromUserFile.predict(classifier = NULL, data, modelType))
+    }
   }
 }

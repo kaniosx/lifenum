@@ -2,14 +2,13 @@ model.heartFailure.fromUserFile.load <- function (userFile) {
   read.csv(userFile, sep = ',')
 }
 
-model.heartFailure.fromUserFile.predict <- function (classifier, dataset, modelType) {
+model.heartFailure.fromUserFile.predict <- function (classifier = NULL, dataset, modelType) {
   if (modelType == 'logisticRegression') {
     return(model.heartFailure.fromUserFile.logisticRegression.predict(classifier, dataset))
   }
 
   if (modelType == 'kNeighborsClassifier') {
     trainSet <- data.heartFailureData
-    trainSet <- trainSet
     return(model.heartFailure.fromUserFile.knn.predict(trainSet, dataset))
   }
 }
@@ -31,10 +30,10 @@ model.heartFailure.fromUserFile.knn.predict <- function (trainSet, testSet) {
   allRows <- rbind(trainSet[,-ncol(trainSet)], testSet)
   scaled <- model.heartFailure.knn.scaleSet(allRows)
 
-  trainSet <- scaled[1:-nrow(trainSet),]
+  trainSet <- scaled[1:nrow(trainSet)-nrow(testSet),]
   trainSet$DEATH_EVENT <- deathColumn
 
-  testSet <- scaled[nrow(trainSet):nrow(scaled),]
+  testSet <- scaled[nrow(trainSet)+1:nrow(scaled),]
 
   yPred <- knn(
     train = trainSet[,-ncol(trainSet)],

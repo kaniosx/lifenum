@@ -31,3 +31,23 @@ model.diabetes.fromForm.logisticRegression.predict <- function(classifier, testS
   prediction <- ifelse(probPred > 0.5, 1, 0)
   prediction
 }
+
+model.diabetes.fromForm.knn.predict <- function (trainingSet, testSet) {
+  trainingSet <- model.diabetes.knn.preprocessData(trainingSet)
+
+  allRows <- rbind(trainingSet[,-ncol(trainingSet)], testSet)
+  scaled <- model.diabetes.knn.scaleSet(allRows)
+
+  train <- scaled[-nrow(scaled),]
+  train$class <- trainingSet$class
+  testSet <- scaled[nrow(scaled),]
+
+  yPred <- knn(
+    train = train[,-ncol(trainingSet)],
+    test = testSet,
+    cl = train[,ncol(trainingSet)],
+    k = 5
+  )
+
+  yPred
+}

@@ -18,11 +18,6 @@ datainfo.view.visualizationPanel <- tabPanel(
         'X-axis',
         ''
       ),
-      selectInput(
-        'visualizationY',
-        'Y-axis',
-        ''
-      ),
       actionButton(
         'visualizeEvent',
         'Visualize'

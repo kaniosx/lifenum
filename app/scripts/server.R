@@ -5,7 +5,9 @@ source('scripts/datainfo/visualization.R',                  local = TRUE)
 source('scripts/datainfo/analysis.R',                       local = TRUE)
 source('scripts/model/switcher.R',                          local = TRUE)
 source('scripts/model/diabetes/logistic_regression.R',      local = TRUE)
+source('scripts/model/diabetes/knn.R',                      local = TRUE)
 source('scripts/model/diabetes/from_form.R',                local = TRUE)
+source('scripts/model/diabetes/from_user_file.R',           local = TRUE)
 source('scripts/model/heart_failure/logistic_regression.R', local = TRUE)
 source('scripts/model/heart_failure/knn.R',                 local = TRUE)
 source('scripts/model/heart_failure/from_form.R',           local = TRUE)
@@ -24,8 +26,7 @@ server <- function(input, output, session) {
     output$visualization <- renderPlot({ 
       visualization.visualize(
         rawdata.load(input$dataset),
-        input$visualizationX,
-        input$visualizationY
+        input$visualizationX
       )
     })
   })
