@@ -3,6 +3,7 @@ source('scripts/datainfo/description.R',                    local = TRUE)
 source('scripts/datainfo/rawdata.R',                        local = TRUE)
 source('scripts/datainfo/visualization.R',                  local = TRUE)
 source('scripts/datainfo/analysis.R',                       local = TRUE)
+source('scripts/datainfo/summary.R',                        local = TRUE)
 source('scripts/model/switcher.R',                          local = TRUE)
 source('scripts/model/diabetes/logistic_regression.R',      local = TRUE)
 source('scripts/model/diabetes/knn.R',                      local = TRUE)
@@ -49,6 +50,10 @@ server <- function(input, output, session) {
   
   output$selectedDataModelForm <- renderUI({
     model.view.getForm(input$dataset)
+  })
+
+  output$summary <- renderPrint({
+    summary.summarize(input$dataset)
   })
   
   observeEvent(input$trainModelEvent, {

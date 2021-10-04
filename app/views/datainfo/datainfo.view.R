@@ -36,7 +36,8 @@ datainfo.view.analysisPanel <- tabPanel(
 )
 
 datainfo.view.summaryPanel <- tabPanel(
-  title = 'Summary'
+  title = 'Summary',
+  verbatimTextOutput('summary')
 )
 
 datainfo.view.fluidRow <- fluidRow(
