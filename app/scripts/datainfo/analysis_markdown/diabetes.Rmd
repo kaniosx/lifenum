@@ -10,12 +10,12 @@ Age of the patients distribution:
 ```{r}
 
 renderPlot({
-  hist(
-    data.diabetesData$Age,
-    main = 'Age distribution',
-    xlab = 'Age',
-    col = 'orange'
-  )
+  df <- data.frame(data.diabetesData$Age, data.diabetesData$class)
+
+  p <- ggplot(df, aes(x=Age, color=class)) +
+    geom_histogram(fill="orange", alpha=0.5, position="identity") +
+    theme(legend.position="top")
+  p
 })
 
 ```

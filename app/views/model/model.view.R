@@ -37,7 +37,8 @@ model.view.userDataPanel <- tabPanel(
     )
   ),
   actionButton('userFileEvent', 'Generate answers'),
-  tableOutput('userFileOutput')
+  tableOutput('userFileOutput'),
+  downloadButton("downloadData", "Download")
 )
 
 model.view.formPanel <- tabPanel(

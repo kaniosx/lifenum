@@ -83,9 +83,18 @@ server <- function(input, output, session) {
   })
 
   observeEvent(input$userFileEvent, {
+    data <- model.predictFromUserFile.getData(input$dataset, input$modelType, input$userFile$datapath)
+
     output$userFileOutput <- renderTable({
       req(input$userFile)
-      model.predictFromUserFile.getData(input$dataset, input$modelType, input$userFile$datapath)
+      data
     })
+
+    output$downloadData <- downloadHandler(
+      filename = 'data.csv',
+      content = function(file) {
+        write.csv(data, file, row.names = FALSE)
+      }
+    )
   })
 }

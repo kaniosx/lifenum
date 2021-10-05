@@ -8,16 +8,12 @@ Basic informations about the dataset:
 Age of the patients distribution:
 
 ```{r}
-
 renderPlot({
-  hist(
-    data.diabetesData$Age,
-    main = 'Age distribution',
-    xlab = 'Age',
-    col = 'orange'
-  )
+  ggplot(data.heartFailureData, aes(x=age, color=DEATH_EVENT)) +
+  geom_histogram(fill="white", position="dodge")+
+  theme(legend.position="top")+
+  scale_color_manual(values=c("#999999", "#E69F00", "#56B4E9"))
 })
-
 ```
 
 
