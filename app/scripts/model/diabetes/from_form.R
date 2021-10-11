@@ -51,3 +51,10 @@ model.diabetes.fromForm.knn.predict <- function (trainingSet, testSet) {
 
   yPred
 }
+
+model.diabetes.fromForm.decisionTreeClassifier.predict <- function(classifier, testSet) {
+  probPred <- predict(classifier, newdata = testSet)
+
+  prediction <- ifelse(probPred > 0.5, 1, 0)
+  prediction
+}

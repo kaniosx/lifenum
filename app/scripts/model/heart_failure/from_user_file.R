@@ -11,6 +11,10 @@ model.heartFailure.fromUserFile.predict <- function (classifier = NULL, dataset,
     trainSet <- data.heartFailureData
     return(model.heartFailure.fromUserFile.knn.predict(trainSet, dataset))
   }
+
+  if (modelType == 'decisionTreeClassifier') {
+    return(model.heartFailure.fromUserFile.decisionTreeClassification.predict(classifier, dataset))
+  }
 }
 
 model.heartFailure.fromUserFile.logisticRegression.predict <- function (classifier, dataset) {
@@ -44,6 +48,16 @@ model.heartFailure.fromUserFile.knn.predict <- function (trainSet, testSet) {
 
   testSet$DEATH_EVENT <- yPred
   testSet
+}
+
+model.heartFailure.fromUserFile.decisionTreeClassification.predict <- function (classifier, dataset) {
+  probPred <- predict(
+    classifier,
+    newdata = dataset
+  )
+  dataset$DEATH_EVENT <- ifelse(probPred > 0.5, 1, 0)
+
+  dataset
 }
 
 model.heartFailure.fromUserFile.download <- function () {

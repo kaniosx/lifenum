@@ -19,6 +19,12 @@ model.trainModel <- function(modelType, moduleName) {
         model.diabetes.knn.getConfusionMatrix(data.diabetesData)
       )
     }
+
+    if (modelType == 'decisionTreeClassifier') {
+      return(
+        model.diabetes.decisionTreeClassification.getConfusionMatrix(data.diabetesData)
+      )
+    }
   }
   
   if (moduleName == 'heartFailure') {
@@ -43,6 +49,12 @@ model.trainModel <- function(modelType, moduleName) {
         model.heartFailure.knn.getConfusionMatrix(data)
       )
     }
+
+    if (modelType == 'decisionTreeClassifier') {
+      return(
+        model.heartFailure.decisionTreeClassification.getConfusionMatrix(data)
+      )
+    }
   }
 }
 
@@ -52,12 +64,22 @@ model.getClassifier <- function (modelType, moduleName) {
       data <- model.diabetes.logisticRegression.preprocessData(data.diabetesData)
       return(model.diabetes.logisticRegression.getClassifier(data))
     }
+
+    if (modelType == 'decisionTreeClassifier') {
+      data <- model.diabetes.decisionTreeClassification.preprocessData(data.diabetesData)
+      return(model.diabetes.decisionTreeClassification.getClassifier(data))
+    }
   }
 
   if (moduleName == 'heartFailure') {
     if (modelType == 'logisticRegression') {
       data <- data.heartFailureData
       return(model.heartFailure.logisticRegression.getClassifier(data))
+    }
+
+    if (modelType == 'decisionTreeClassifier') {
+      data <- data.heartFailureData
+      return(model.heartFailure.decisionTreeClassification.getClassifier(data))
     }
   }
 }
@@ -74,6 +96,11 @@ model.predictFromForm.getPredicition <- function (input) {
     if (input$modelType == 'kNeighborsClassifier') {
       return(model.diabetes.fromForm.knn.predict(data.diabetesData, data))
     }
+
+    if (input$modelType == 'decisionTreeClassifier') {
+      classifier <- model.getClassifier(input$modelType, input$dataset)
+      return(model.diabetes.fromForm.decisionTreeClassifier.predict(classifier, data))
+    }
   }
 
   if (input$dataset == 'heartFailure') {
@@ -84,6 +111,11 @@ model.predictFromForm.getPredicition <- function (input) {
 
     if (input$modelType == 'kNeighborsClassifier') {
       return(model.heartFailure.fromForm.knn.predict(data.heartFailureData, data))
+    }
+
+    if (input$modelType == 'decisionTreeClassifier') {
+      classifier <- model.getClassifier(input$modelType, input$dataset)
+      return(model.heartFailure.fromForm.decisionTreeClassification.predict(classifier, data))
     }
   }
 }
@@ -102,7 +134,7 @@ model.predictFromUserFile.getData <- function (datasetName, modelType, filePath)
   if (datasetName == 'diabetes') {
     data <- model.diabetes.fromUserFile.load(filePath)
 
-    if (modelType == 'logisticRegression') {
+    if (modelType == 'logisticRegression' || modelType == 'decisionTreeClassifier') {
       classifier <- model.getClassifier(modelType, datasetName)
       return(model.diabetes.fromUserFile.predict(classifier = classifier, data, modelType))
     }
@@ -115,7 +147,7 @@ model.predictFromUserFile.getData <- function (datasetName, modelType, filePath)
   if (datasetName == 'heartFailure') {
     data <- model.heartFailure.fromUserFile.load(filePath)
 
-    if (modelType == 'logisticRegression') {
+    if (modelType == 'logisticRegression' || modelType == 'decisionTreeClassifier') {
       classifier <- model.getClassifier(modelType, datasetName)
       return(model.heartFailure.fromUserFile.predict(classifier, data, modelType))
     }

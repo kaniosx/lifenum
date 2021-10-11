@@ -54,3 +54,13 @@ model.heartFailure.fromForm.knn.predict <- function(trainingSet, testSet) {
 
   yPred
 }
+
+model.heartFailure.fromForm.decisionTreeClassification.predict <- function(classifier, testSet) {
+  probPred <- predict(
+    classifier,
+    newdata = testSet
+  )
+
+  return(ifelse(probPred > 0.5, 1, 0))
+}
+

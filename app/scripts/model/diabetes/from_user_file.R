@@ -11,6 +11,10 @@ model.diabetes.fromUserFile.predict <- function (classifier = NULL, dataset, mod
     data <- data.diabetesData
     return(model.diabetes.fromUserFile.knn.predict(data, dataset))
   }
+
+  if (modelType == 'decisionTreeClassifier') {
+    return(model.diabetes.fromUserFile.decisionTreeClassification.predict(classifier, dataset))
+  }
 }
 
 model.diabetes.fromUserFile.logisticRegression.predict <- function (classifier, dataset) {
@@ -45,6 +49,17 @@ model.diabetes.fromUserFile.knn.predict <- function (trainSet, testSet) {
 
   testSet$class <- yPred
   testSet
+}
+
+model.diabetes.fromUserFile.decisionTreeClassification.predict <- function (classifier, dataset) {
+  dataset <- model.diabetes.decisionTreeClassification.preprocessData(dataset)
+  probPred <- predict(
+    classifier,
+    newdata = dataset
+  )
+  dataset$class <- ifelse(probPred > 0.5, 1, 0)
+
+  dataset
 }
 
 model.diabetes.fromUserFile.download <- function () {

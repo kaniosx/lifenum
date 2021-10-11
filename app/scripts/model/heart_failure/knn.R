@@ -16,13 +16,6 @@ model.heartFailure.knn.scaleSet <- function (set) {
   set
 }
 
-model.heartFailure.knn.getSampleSplit <- function (data) {
-  set.seed(Sys.time())
-
-  split <- sample.split(data$DEATH_EVENT, SplitRatio = 0.75)
-  split
-}
-
 model.heartFailure.knn.getConfusionMatrix <- function (dataset) {
   split <- model.heartFailure.knn.getSampleSplit(dataset)
   trainingSet <- subset(dataset, split == TRUE)

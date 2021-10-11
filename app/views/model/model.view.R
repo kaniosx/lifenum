@@ -12,9 +12,9 @@ model.view.trainingPanel <- tabPanel(
     'modelType', 
     'Model type',
     choices = c(
+      'Decision Tree Classification' = 'decisionTreeClassifier',
       'Logistic reggresion' = 'logisticRegression',
       # 'Random forest' = 'randomForestClassifier',
-      # 'Decision tree' = 'decisionTreeClassifier',
       'K Nearest Neighbors' = 'kNeighborsClassifier'
     ),
     selected = 'logisticReggresion'
