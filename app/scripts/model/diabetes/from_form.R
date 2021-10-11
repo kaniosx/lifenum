@@ -58,3 +58,7 @@ model.diabetes.fromForm.decisionTreeClassifier.predict <- function(classifier, t
   prediction <- ifelse(probPred > 0.5, 1, 0)
   prediction
 }
+
+model.diabetes.fromForm.naiveBayes.predict <- function (classifier, testSet) {
+  predict(classifier, newdata = testSet)
+}

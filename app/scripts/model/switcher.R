@@ -25,6 +25,12 @@ model.trainModel <- function(modelType, moduleName) {
         model.diabetes.decisionTreeClassification.getConfusionMatrix(data.diabetesData)
       )
     }
+
+    if (modelType == 'naiveBayes') {
+      return(
+        model.diabetes.naiveBayes.getConfusionMatrix(data.diabetesData)
+      )
+    }
   }
   
   if (moduleName == 'heartFailure') {
@@ -55,31 +61,46 @@ model.trainModel <- function(modelType, moduleName) {
         model.heartFailure.decisionTreeClassification.getConfusionMatrix(data)
       )
     }
+
+    if (modelType == 'naiveBayes') {
+      return(
+        model.heartFailure.naiveBayes.getConfusionMatrix(data)
+      )
+    }
   }
 }
 
 model.getClassifier <- function (modelType, moduleName) {
   if (moduleName == 'diabetes') {
+    data <- model.diabetes.decisionTreeClassification.preprocessData(data.diabetesData)
+
     if (modelType == 'logisticRegression') {
-      data <- model.diabetes.logisticRegression.preprocessData(data.diabetesData)
       return(model.diabetes.logisticRegression.getClassifier(data))
     }
 
     if (modelType == 'decisionTreeClassifier') {
-      data <- model.diabetes.decisionTreeClassification.preprocessData(data.diabetesData)
       return(model.diabetes.decisionTreeClassification.getClassifier(data))
+    }
+
+    if (modelType == 'naiveBayes') {
+      return(model.diabetes.naiveBayes.getClassifier(data))
     }
   }
 
   if (moduleName == 'heartFailure') {
+    data <- data.heartFailureData
+
     if (modelType == 'logisticRegression') {
-      data <- data.heartFailureData
       return(model.heartFailure.logisticRegression.getClassifier(data))
     }
 
     if (modelType == 'decisionTreeClassifier') {
-      data <- data.heartFailureData
       return(model.heartFailure.decisionTreeClassification.getClassifier(data))
+    }
+
+    if (modelType == 'naiveBayes') {
+      data <- data[,-grep('time',colnames(data))]
+      return(model.heartFailure.naiveBayes.getClassifier(data))
     }
   }
 }
@@ -101,6 +122,11 @@ model.predictFromForm.getPredicition <- function (input) {
       classifier <- model.getClassifier(input$modelType, input$dataset)
       return(model.diabetes.fromForm.decisionTreeClassifier.predict(classifier, data))
     }
+
+    if (input$modelType == 'naiveBayes') {
+      classifier <- model.getClassifier(input$modelType, input$dataset)
+      return(model.diabetes.fromForm.naiveBayes.predict(classifier, data))
+    }
   }
 
   if (input$dataset == 'heartFailure') {
@@ -116,6 +142,11 @@ model.predictFromForm.getPredicition <- function (input) {
     if (input$modelType == 'decisionTreeClassifier') {
       classifier <- model.getClassifier(input$modelType, input$dataset)
       return(model.heartFailure.fromForm.decisionTreeClassification.predict(classifier, data))
+    }
+
+    if (input$modelType == 'naiveBayes') {
+      classifier <- model.getClassifier(input$modelType, input$dataset)
+      return(model.heartFailure.fromForm.naiveBayes.predict(classifier, data))
     }
   }
 }
@@ -134,7 +165,7 @@ model.predictFromUserFile.getData <- function (datasetName, modelType, filePath)
   if (datasetName == 'diabetes') {
     data <- model.diabetes.fromUserFile.load(filePath)
 
-    if (modelType == 'logisticRegression' || modelType == 'decisionTreeClassifier') {
+    if (modelType == 'logisticRegression' || modelType == 'decisionTreeClassifier' || modelType == 'naiveBayes') {
       classifier <- model.getClassifier(modelType, datasetName)
       return(model.diabetes.fromUserFile.predict(classifier = classifier, data, modelType))
     }
@@ -147,7 +178,7 @@ model.predictFromUserFile.getData <- function (datasetName, modelType, filePath)
   if (datasetName == 'heartFailure') {
     data <- model.heartFailure.fromUserFile.load(filePath)
 
-    if (modelType == 'logisticRegression' || modelType == 'decisionTreeClassifier') {
+    if (modelType == 'logisticRegression' || modelType == 'decisionTreeClassifier' || modelType == 'naiveBayes') {
       classifier <- model.getClassifier(modelType, datasetName)
       return(model.heartFailure.fromUserFile.predict(classifier, data, modelType))
     }

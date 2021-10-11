@@ -15,6 +15,10 @@ model.heartFailure.fromUserFile.predict <- function (classifier = NULL, dataset,
   if (modelType == 'decisionTreeClassifier') {
     return(model.heartFailure.fromUserFile.decisionTreeClassification.predict(classifier, dataset))
   }
+
+  if (modelType == 'naiveBayes') {
+    return(model.heartFailure.fromUserFile.naiveBayes.predict(classifier, dataset))
+  }
 }
 
 model.heartFailure.fromUserFile.logisticRegression.predict <- function (classifier, dataset) {
@@ -56,6 +60,15 @@ model.heartFailure.fromUserFile.decisionTreeClassification.predict <- function (
     newdata = dataset
   )
   dataset$DEATH_EVENT <- ifelse(probPred > 0.5, 1, 0)
+
+  dataset
+}
+
+model.heartFailure.fromUserFile.naiveBayes.predict <- function (classifier, dataset) {
+  dataset$DEATH_EVENT <- predict(
+    classifier,
+    newdata = dataset
+  )
 
   dataset
 }

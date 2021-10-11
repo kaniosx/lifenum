@@ -12,6 +12,7 @@ model.view.trainingPanel <- tabPanel(
     'modelType', 
     'Model type',
     choices = c(
+      'Naive Bayes' = 'naiveBayes',
       'Decision Tree Classification' = 'decisionTreeClassifier',
       'Logistic reggresion' = 'logisticRegression',
       # 'Random forest' = 'randomForestClassifier',

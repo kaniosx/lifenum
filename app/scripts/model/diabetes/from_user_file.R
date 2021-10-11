@@ -15,6 +15,10 @@ model.diabetes.fromUserFile.predict <- function (classifier = NULL, dataset, mod
   if (modelType == 'decisionTreeClassifier') {
     return(model.diabetes.fromUserFile.decisionTreeClassification.predict(classifier, dataset))
   }
+
+  if (modelType == 'naiveBayes') {
+    return(model.diabetes.fromUserFile.naiveBayes.predict(classifier, dataset))
+  }
 }
 
 model.diabetes.fromUserFile.logisticRegression.predict <- function (classifier, dataset) {
@@ -58,6 +62,16 @@ model.diabetes.fromUserFile.decisionTreeClassification.predict <- function (clas
     newdata = dataset
   )
   dataset$class <- ifelse(probPred > 0.5, 1, 0)
+
+  dataset
+}
+
+model.diabetes.fromUserFile.naiveBayes.predict <- function (classifier, dataset) {
+  dataset <- model.diabetes.naiveBayes.preprocessData(dataset)
+  dataset$class <- predict(
+    classifier,
+    newdata = dataset
+  )
 
   dataset
 }

@@ -64,3 +64,6 @@ model.heartFailure.fromForm.decisionTreeClassification.predict <- function(class
   return(ifelse(probPred > 0.5, 1, 0))
 }
 
+model.heartFailure.fromForm.naiveBayes.predict <- function (classifier, testSet) {
+  predict(classifier, newdata = testSet)
+}
