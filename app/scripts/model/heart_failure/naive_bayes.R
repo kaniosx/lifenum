@@ -22,6 +22,7 @@ model.heartFailure.naiveBayes.getConfusionMatrix <- function (dataset) {
 
   table(testSet$DEATH_EVENT, yPred)
 }
+
 model.heartFailure.naiveBayes.getClassifier <- function(trainingSet) {
   naiveBayes(
     x = trainingSet[-ncol(trainingSet)],
@@ -29,3 +30,11 @@ model.heartFailure.naiveBayes.getClassifier <- function(trainingSet) {
   )
 }
 
+model.heartFailure.naiveBayes.getPrediction <- function(trainingSet, testSet) {
+  classifier <- naiveBayes(
+    x = trainingSet[-ncol(trainingSet)],
+    y = trainingSet$DEATH_EVENT
+  )
+  
+  predict(classifier, newdata = testSet[-ncol(testSet)])
+}

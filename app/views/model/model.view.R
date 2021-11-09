@@ -7,29 +7,28 @@ model.view.getForm <- function(datasetName) {
 }
 
 model.view.trainingPanel <- tabPanel(
-  title = 'Training',
+  title = 'Trening',
   selectInput(
     'modelType', 
-    'Model type',
+    'Typ modelu',
     choices = c(
-      'Naive Bayes' = 'naiveBayes',
-      'Decision Tree Classification' = 'decisionTreeClassifier',
-      'Logistic reggresion' = 'logisticRegression',
-      # 'Random forest' = 'randomForestClassifier',
-      'K Nearest Neighbors' = 'kNeighborsClassifier'
+      'Naiwny klasyfikator Bayesa' = 'naiveBayes',
+      'Klasyfikator drzew decyzyjnych' = 'decisionTreeClassifier',
+      'Regresja logistyczna' = 'logisticRegression',
+      'Klasyfikator k najbliższych sąsiadów' = 'kNeighborsClassifier'
     ),
     selected = 'logisticReggresion'
   ),
-  actionButton('trainModelEvent', 'Train model'),
+  actionButton('trainModelEvent', 'Trenuj'),
   textOutput('trainModelStatusMessage'),
   tableOutput('confusionMatrix')
 )
 
 model.view.userDataPanel <- tabPanel(
-  title = 'Upload test data',
+  title = 'Importuj dane testowe',
   fileInput(
     'userFile',
-    'Upload your CSV File',
+    'Załaduj swój plii CSV',
     multiple = FALSE,
     accept = c(
       'text/csv',
@@ -37,20 +36,29 @@ model.view.userDataPanel <- tabPanel(
       '.csv'
     )
   ),
-  actionButton('userFileEvent', 'Generate answers'),
+  actionButton('userFileEvent', 'Wygeneruj odpowiedzi'),
   tableOutput('userFileOutput'),
-  downloadButton("downloadData", "Download")
+  downloadButton("downloadData", "Pobierz")
 )
 
 model.view.formPanel <- tabPanel(
-  title = 'Model form',
+  title = 'Formularz',
   uiOutput('selectedDataModelForm'),
   actionButton(
     'checkFormEvent',
-    'Check'
+    'Sprawdź'
   ),
   tableOutput('formTable'),
   textOutput('formScore')
+)
+
+model.view.comparisonPanel <- tabPanel(
+  title = 'Krzywe ROC',
+  actionButton(
+    'generateRocEvent',
+    'Generuj'
+  ),
+  plotOutput('comparison')
 )
 
 model.view.fluidRow <- fluidRow(
@@ -58,103 +66,104 @@ model.view.fluidRow <- fluidRow(
     width = 12,
     model.view.trainingPanel,
     model.view.formPanel,
-    model.view.userDataPanel
+    model.view.userDataPanel,
+    model.view.comparisonPanel
   )
 )
 
 model.view.diabetesForm <- fluidPage(
   numericInput(
     'diabetesAge', 
-    'Age:',
+    'Wiek:',
     0
   ),
   selectInput(
     'diabetesGender',
-    'Gender:',
-    c('Male' = 'Male', 'Female' = 'Female')
+    'Płeć:',
+    c('Mężczyzna' = 'Male', 'Kobieta' = 'Female')
   ),
   selectInput(
     'diabetesPolyuria',
-    'Polyuria:',
-    c('Yes' = 'Yes', 'No' = 'No'),
+    'Poliuria:',
+    c('Tak' = 'Yes', 'Nie' = 'No'),
     selected = 'No'
   ),
   selectInput(
     'diabetesPolydipsia',
-    'Polydipsia:',
-    c('Yes' = 'Yes', 'No' = 'No'),
+    'Polidypsja:',
+    c('Tak' = 'Yes', 'Nie' = 'No'),
     selected = 'No'
   ),
   selectInput(
     'diabetesSuddenWeightLoss',
     'Sudden weight loss:',
-    c('Yes' = 'Yes', 'No' = 'No'),
+    c('Tak' = 'Yes', 'Nie' = 'No'),
     selected = 'No'
   ),
   selectInput(
     'diabetesWeakness',
-    'Weakness:',
-    c('Yes' = 'Yes', 'No' = 'No'),
+    'Osłabienie:',
+    c('Tak' = 'Yes', 'Nie' = 'No'),
     selected = 'No'
   ),
   selectInput(
     'diabetesPolyphagia',
-    'Polyphagia:',
-    c('Yes' = 'Yes', 'No' = 'No'),
+    'Polifagia:',
+    c('Tak' = 'Yes', 'Nie' = 'No'),
     selected = 'No'
   ),
   selectInput(
     'diabetesGenitalThrush',
-    'Genital thrush:',
-    c('Yes' = 'Yes', 'No' = 'No'),
+    'Pleśniawki narządów płciowych:',
+    c('Tak' = 'Yes', 'Nie' = 'No'),
     selected = 'No'
   ),
   selectInput(
     'diabetesVisualBlurring',
-    'Visual blurring:',
-    c('Yes' = 'Yes', 'No' = 'No'),
+    'Rozmyte widzenie:',
+    c('Tak' = 'Yes', 'Nie' = 'No'),
     selected = 'No'
   ),
   selectInput(
     'diabetesItching',
-    'Itching:',
-    c('Yes' = 'Yes', 'No' = 'No'),
+    'Swędzenie:',
+    c('Tak' = 'Yes', 'Nie' = 'No'),
     selected = 'No'
   ),
   selectInput(
     'diabetesIrritability',
-    'Irritability:',
-    c('Yes' = 'Yes', 'No' = 'No'),
+    'Drażliwość:',
+    c('Tak' = 'Yes', 'Nie' = 'No'),
     selected = 'No'
   ),
   selectInput(
     'diabetesDelayedHealing',
-    'Delayed healing:',
-    c('Yes' = 'Yes', 'No' = 'No'),
+    'Opóźnione gojenie:',
+    c('Tak' = 'Yes', 'Nie' = 'No'),
     selected = 'No'
   ),
   selectInput(
     'diabetesPartialParesis',
-    'Partial paresis:',
-    c('Yes' = 'Yes', 'No' = 'No'),
+    'Częściowy niedowład:',
+    c('Tak' = 'Yes', 'Nie' = 'No'),
     selected = 'No'
   ),
   selectInput(
     'diabetesMuscleStiffness',
-    'Polyuria:',
-    c('Yes' = 'Yes', 'No' = 'No'),
+    'Sztywność mięśni:',
+    c('Tak' = 'Yes', 'Nie' = 'No'),
     selected = 'No'
   ),
   selectInput(
     'diabetesAlopecia',
-    'Alopecia:',
-    c('Yes' = 'Yes', 'No' = 'No'),
+    'Alopecja:',
+    c('Tak' = 'Yes', 'Nie' = 'No'),
     selected = 'No'
   ),
   selectInput(
     'diabetesObesity',
-    'Obesity:',
-    c('Yes' = 'Yes', 'No' = 'No'),
+    'Otyłość:',
+    c('Tak' = 'Yes', 'Nie' = 'No'),
     selected = 'No'
   )
 )
@@ -162,62 +171,62 @@ model.view.diabetesForm <- fluidPage(
 model.view.heartFailureForm <- fluidPage(
   numericInput(
     'heartFailureAge', 
-    'Age:',
+    'Wiek:',
     0
   ),
   selectInput(
     'heartFailureGender',
-    'Gender:',
-    c('Male' = 1, 'Female' = 0),
+    'Płeć:',
+    c('Mężczyzna' = 1, 'Kobieta' = 0),
     selected = 1
   ),
   selectInput(
     'heartFailureAnaemia',
-    'Anaemia:',
-    c('Yes' = 1, 'No' = 0),
+    'Anemia:',
+    c('Tak' = 1, 'Nie' = 0),
     selected = 0
   ),
   numericInput(
     'heartFailureCreatininePhosphokinase', 
-    'Creatinine phosphokinase:',
+    'Fosfokinaza kreatynowa:',
     0
   ),
   selectInput(
     'heartFailureDiabetes',
-    'Diabetes:',
-    c('Yes' = 1, 'No' = 0),
+    'Cukrzyca:',
+    c('Tak' = 1, 'Nie' = 0),
     selected = 0
   ),
   numericInput(
     'heartFailureEjectionFraction', 
-    'Ejection fraction:',
+    'Frakcja wyrzutowa:',
     0
   ),
   selectInput(
     'heartFailureHighBloodPreasure',
-    'High blood preasure:',
-    c('Yes' = 1, 'No' = 0),
+    'Wysokie ciśnienie krwi:',
+    c('Tak' = 1, 'Nie' = 0),
     selected = 0
   ),
   numericInput(
     'heartFailurePlatelets', 
-    'Platelets:',
+    'Płytki krwi:',
     0
   ),
   numericInput(
     'heartFailureSerumCreatinine', 
-    'Serum creatinine:',
+    'Kreatynina:',
     0
   ),
   numericInput(
     'heartFailureSerumSodium', 
-    'Serum sodium:',
+    'Sód:',
     0
   ),
   selectInput(
     'heartFailureSmoking',
-    'Smoking:',
-    c('Yes' = 1, 'No' = 0),
+    'Palenie:',
+    c('Tak' = 1, 'Nie' = 0),
     selected = 0
   )
 )

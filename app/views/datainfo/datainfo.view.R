@@ -1,15 +1,15 @@
 datainfo.view.descriptionPanel <- tabPanel(
-  title = 'Description',
+  title = 'Opis',
   htmlOutput('selectedDataDescription')
 )
 
 datainfo.view.rawViewPanel <- tabPanel(
-  title = 'Raw view',
+  title = 'Surowe dane',
   dataTableOutput('selectedRawData')
 )
 
 datainfo.view.visualizationPanel <- tabPanel(
-  title = 'Simple Visualization',
+  title = 'Wizualizacja',
   fluidRow(
     column(
       width = 2,
@@ -31,12 +31,12 @@ datainfo.view.visualizationPanel <- tabPanel(
 )
 
 datainfo.view.analysisPanel <- tabPanel(
-  title = 'Analysis',
+  title = 'Analiza',
   uiOutput('selectedDataAnalysis')
 )
 
 datainfo.view.summaryPanel <- tabPanel(
-  title = 'Summary',
+  title = 'Podsumowanie',
   verbatimTextOutput('summary')
 )
 

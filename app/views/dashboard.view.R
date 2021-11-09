@@ -1,26 +1,26 @@
 dashboard.view.sideBar <- dashboardSidebar(
   selectInput(
     'dataset',
-    'Choose dataset',
+    'Wybierz dane',
     c(
-      'Heart failure' = 'heartFailure',
-      'Diabetes' = 'diabetes'
+      'Niewydolność serca' = 'heartFailure',
+      'Cukrzyca' = 'diabetes'
     ),
     'heartFailure',
   ),
   sidebarMenu(
     menuItem(
-      'Data',
+      'Dane',
       tabName = 'dataInfo',
       icon = icon('th')
     ),
     menuItem(
-      'Model',
+      'Modele',
       tabName = 'model',
       icon = icon('robot')
     ),
     menuItem(
-      'About',
+      'O projekcie',
       tabName = 'about',
       icon = icon('medrt')
     )

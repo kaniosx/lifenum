@@ -31,3 +31,12 @@ model.heartFailure.decisionTreeClassification.getClassifier <- function (trainin
     data = trainingSet
   )
 }
+
+model.heartFailure.decisionTreeClassification.getPrediction <- function(trainingSet, testSet) {
+  classifier <- rpart(
+    formula = DEATH_EVENT ~ .,
+    data = trainingSet
+  )
+  
+  predict(classifier, newdata = testSet[,-ncol(testSet)])
+}

@@ -1,58 +1,54 @@
 # Description module
 
 description.heartFailureDescription <- '
-https://www.kaggle.com/sanchitakarmakar/heart-failure-prediction-visualization
-  <h3>Heart Failure Prediction Visualization</h3>
+  <h3>Predykcja zgonu w wyniku niewydolności serca</h3>
   <hr>
-  <p>Cardiovascular diseases (CVDs) are the number 1 cause of death globally, taking an estimated 17.9 million lives each year, which accounts for 31% of all deaths worlwide. Heart failure is a common event caused by CVDs and this dataset contains 12 features that can be used to predict mortality by heart failure.</p>
-  <p>Most cardiovascular diseases can be prevented by addressing behavioural risk factors such as tobacco use, unhealthy diet and obesity, physical inactivity and harmful use of alcohol using population-wide strategies.</p>
-  <p>People with cardiovascular disease or who are at high cardiovascular risk (due to the presence of one or more risk factors such as hypertension, diabetes, hyperlipidaemia or already established disease) need early detection and management wherein a machine learning model can be of great help.</p>
-  <h4>Data record consists of thirteen (13) clinical features:</h4>
+  <p>Choroby układu krwionośnego są najczęstszą przyczyną śmierci na świecie, zabijając rocznie ok 18 mln osób, co przekłada się na ponad 30% śmierci rocznie. Niewydolność serca jest częstym przypadkiem choroby układu krążenia. Ten zbiór danych zawiera symptomy, które mogą pomóc prognozować śmiertelny przypadek niewydolności.</p>
+  <p>Większość chorób układu krwionośnego można powstrzymać poprzez propagowanie zdrowego trybu życia i zastopowanie tzw. faktorów ryzyka, takich jak palenie, niezdrowa dieta, brak aktywności, nadużywanie alkoholu itd.</p>
+  <p>Ludzie z niewydolnością układu krążenia lub zagrożeni nią potrzebują wczesnej diagnozy oraz leczenia, w czym może pomóc model uczenia maszynowego.</p>
+  <h4>Zbiór zawiera 12 właściwości klinicznych:</h4>
   <ul>
-    <li>age: age of the patient (years)</li>
-    <li>anaemia: decrease of red blood cells or hemoglobin (boolean)</li>
-    <li>high blood pressure: if the patient has hypertension (boolean)</li>
-    <li>creatinine phosphokinase (CPK): level of the CPK enzyme in the blood (mcg/L)</li>
-    <li>diabetes: if the patient has diabetes (boolean)</li>
-    <li>ejection fraction: percentage of blood leaving the heart at each contraction (percentage)</li>
-    <li>platelets: platelets in the blood (kiloplatelets/mL)</li>
-    <li>sex: woman or man (binary)</li>
-    <li>serum creatinine: level of serum creatinine in the blood (mg/dL)</li>
-    <li>serum sodium: level of serum sodium in the blood (mEq/L)</li>
-    <li>smoking: if the patient smokes or not (boolean)</li>
-    <li>time: follow-up period (days)</li>
-    <li>[target] death event: if the patient deceased during the follow-up period (boolean)</li>
+    <li>wiek: wiek pacjenta (lata)</li>
+    <li>anemia: obniżona ilość czerwonych krwinek w hemoglobinie (tak/nie)</li>
+    <li>wysokie ciśnienie krwi: czy pacjent ma wysokie ciśnienie krwi (tak/nie)</li>
+    <li>fosfokinaza kreatynowa (CPK): poziom enzymu CPK we krwi (mcg/L)</li>
+    <li>cukrzyca: czy pacjent jest cukrzykiem (tak/nie)</li>
+    <li>frakcja wyrzutowa: procent krwi wypompowywany przez serce przy każdym skurczu (procent * 100)</li>
+    <li>płytki krwi: płytki we krwi (liczba płytek * 100/mL)</li>
+    <li>płeć: mężczyzna/kobieta</li>
+    <li>kreatynina: poziom kreatyniny we krwi (mg/dL)</li>
+    <li>sód: poziom sodu we krwi (mEq/L)</li>
+    <li>palenie: czy pacjent jest palaczem (tak/nie)</li>
+    <li>śmierć: czy nastąpił zgon pacjenta (tak/nie)</li>
   </ul>
 '
 
 description.diabetesDescription <- '
-https://www.kaggle.com/ishandutta/early-stage-diabetes-risk-prediction-dataset
-  <h3>Early Stage Diabetes Prediction</h4>
+  <h3>Predykcja cukrzycy</h4>
   <hr>
-  <h4>About Data</h4>
-  <p>This dataset contains the sign and symptpom data of newly diabetic or would be diabetic patient. This has been collected using direct questionnaires from the patients of Sylhet Diabetes Hospital in Sylhet, Bangladesh and approved by a doctor.</p>
-  <h4>Features of the dataset</h4>
-  <p>The dataset consist of total 15 features and one target variable named class.</p>
-
+  <h4>O danych</h4>
+  <p>Zbiór danych zawiera znaki i symptomy noworozpoznanych lub nie diabetyków. Zostały zebrane poprzez bezpośrednie ankiety od pacjentów ze Szpitala Diabetologicznego w Sylhet, w Bangladeszu i zostały zatwierdzone przez lekarza.</p>
+  <h4>Właściwości zbioru</h4>
+  <p>Zbiór danych zawiera po 15 właściwości i jedną dodatkową o nazwie klasa, stwierdzającą czy badany pacjent jest cukrzykiem.</p>
   <ul>
-    <li>1. Age: Age in years ranging from (20years to 65 years)</li>
-    <li>2. Gender: Male/Female</li>
-    <li>3. Polyuria: Yes/No</li>
-    <li>4. Polydipsia: Yes/No</li>
-    <li>5. Sudden weight loss: Yes/No</li>
-    <li>6. Weakness: Yes/No</li>
-    <li>7. Polyphagia: Yes/No</li>
-    <li>8. Genital Thrush: Yes/No</li>
-    <li>9. Visual blurring: Yes/No</li>
-    <li>10. Itching: Yes/No</li>
-    <li>11. Irritability: Yes/No</li>
-    <li>12. Delayed healing: Yes/No</li>
-    <li>13. Partial Paresis: Yes/No</li>
-    <li>14. Muscle stiffness: yes/No</li>
-    <li>15. Alopecia: Yes/ No</li>
-    <li>16. Obesity: Yes/ No</li>
+    <li>1. Wiek: Age in years ranging from (20years to 65 years)</li>
+    <li>2. Płeć: mężczyzna/kobieta</li>
+    <li>3. Poliuria: tak/nie</li>
+    <li>4. Polidypsja: tak/nie</li>
+    <li>5. Nagła utrata wagi: tak/nie</li>
+    <li>6. Słabość: tak/nie</li>
+    <li>7. Polifagia: tak/nie</li>
+    <li>8. Pleśniawki narządów płciowych: tak/nie</li>
+    <li>9. Rozmyte widzenie: tak/nie</li>
+    <li>10. Swędzenie: tak/nie</li>
+    <li>11. Drażliwość: tak/nie</li>
+    <li>12. Opóźnione gojenie: tak/nie</li>
+    <li>13. Częściowy niedowład: tak/nie</li>
+    <li>14. Sztywność mięśni: tak/nie</li>
+    <li>15. Alopecja: tak/nie</li>
+    <li>16. Otyłość: tak/nie</li>
   </ul>
-  Class: Positive / Negative
+  Klasa: pozytywny / negatywny
 '
 
 description.describeData <- function (key) {

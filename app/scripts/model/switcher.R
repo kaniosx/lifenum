@@ -188,3 +188,98 @@ model.predictFromUserFile.getData <- function (datasetName, modelType, filePath)
     }
   }
 }
+
+model.generateRoc <- function(datasetName, modelType) {
+  if (datasetName == 'diabetes') {
+    data <- model.diabetes.knn.preprocessData(data.diabetesData)
+    split <- model.diabetes.knn.getSampleSplit(data)
+    testSet <- subset(data, split == FALSE)
+    trainingSet <- subset(data, split == TRUE)
+
+    if (modelType == 'kNeighborsClassifier') {
+      predicted <- model.diabetes.knn.getPrediction(
+        trainingSet,
+        testSet
+      )
+      real <- testSet$class
+      
+      return(model.diabetes.roc.generate(predicted, real))
+    }
+    
+    if (modelType == 'naiveBayes') {
+      predicted <- model.diabetes.naiveBayes.getPrediction(
+        trainingSet,
+        testSet
+      )
+      real <- testSet$class
+      
+      return(model.diabetes.roc.generate(predicted, real))
+    }
+    
+    if (modelType == 'decisionTreeClassifier') {
+      predicted <- model.diabetes.decisionTreeClassification.getPrediction(
+        trainingSet,
+        testSet
+      )
+      real <- testSet$class
+      
+      return(model.diabetes.roc.generate(predicted, real))
+    }
+    
+    if (modelType == 'logisticRegression') {
+      predicted <- model.diabetes.logisticRegression.getPrediction(
+        trainingSet,
+        testSet
+      )
+      real <- testSet$class
+      
+      return(model.diabetes.roc.generate(predicted, real))
+    }
+  }
+  
+  if (datasetName == 'heartFailure') {
+    data <- data.heartFailureData
+    split <- model.heartFailure.knn.getSampleSplit(data)
+    testSet <- subset(data, split == FALSE)
+    trainingSet <- subset(data, split == TRUE)
+    
+    if (modelType == 'kNeighborsClassifier') {
+      predicted <- model.heartFailure.knn.getPrediction(
+        trainingSet,
+        testSet
+      )
+      real <- testSet$DEATH_EVENT
+      
+      return(model.heartFailure.roc.generate(predicted, real))
+    }
+    
+    if (modelType == 'naiveBayes') {
+      predicted <- model.heartFailure.naiveBayes.getPrediction(
+        trainingSet,
+        testSet
+      )
+      real <- testSet$DEATH_EVENT
+      return(model.heartFailure.roc.generate(predicted, real))
+    }
+    
+    if (modelType == 'decisionTreeClassifier') {
+      predicted <- model.heartFailure.decisionTreeClassification.getPrediction(
+        trainingSet,
+        testSet
+      )
+      real <- testSet$DEATH_EVENT
+      
+      return(model.heartFailure.roc.generate(predicted, real))
+    }
+    
+    if (modelType == 'logisticRegression') {
+      predicted <- model.heartFailure.logisticRegression.getPrediction(
+        trainingSet,
+        testSet
+      )
+      real <- testSet$DEATH_EVENT
+      
+      return(model.heartFailure.roc.generate(predicted, real))
+    }
+  }
+}

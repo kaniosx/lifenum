@@ -33,3 +33,18 @@ model.diabetes.logisticRegression.getConfusionMatrix <- function (classifier, te
 
   confusionMatrix
 }
+
+model.diabetes.logisticRegression.getPrediction <- function(trainingSet, testSet) {
+  classifier <- glm(
+    formula = class ~ .,
+    family = binomial,
+    data = trainingSet
+  )
+  probPred <- predict(
+    classifier,
+    type = 'response',
+    newdata = testSet[-ncol(testSet)]
+  )
+  
+  ifelse(probPred > 0.5, 1, 0)
+}

@@ -29,3 +29,19 @@ model.heartFailure.logisticRegression.getConfusionMatrix <- function (classifier
 
   confusionMatrix
 }
+
+model.heartFailure.logisticRegression.getPrediction <- function(trainingSet, testSet) {
+  classifier <- glm(
+    formula = DEATH_EVENT ~ .,
+    family = binomial,
+    data = trainingSet
+  )
+  
+  probPred <- predict(
+    classifier,
+    type = 'response',
+    newdata = testSet[-ncol(testSet)]
+  )
+  
+  ifelse(probPred > 0.5, 1, 0)
+}

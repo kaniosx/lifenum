@@ -3,42 +3,91 @@ title: "heartfailure"
 output: html_document
 ---
 
-Basic informations about the dataset:
+```{r}
+data <- read.csv('data/heartfailure.csv', sep = ',')
+dead <- data[data$DEATH_EVENT == 1,]
+```
 
-Age of the patients distribution:
+Podstawowe informacje o zbiorze danych:
 
+Sprawdźmy histogram wieku pacjentów oraz zaznaczoną na nim liczbą wyników ataków serca zakończonych zgonem pacjenta:
 ```{r}
 renderPlot({
-  ggplot(data.heartFailureData, aes(x=age, color=DEATH_EVENT)) +
-  geom_histogram(fill="white", position="dodge")+
-  theme(legend.position="top")+
-  scale_color_manual(values=c("#999999", "#E69F00", "#56B4E9"))
+  ggplot(data, aes(x = age)) +
+    ggtitle('Wiek a wystąpienie zgonu') +
+    geom_histogram(data = data, fill = 'red', alpha = 0.4) +
+    geom_histogram(data = dead, fill = 'blue', alpha = 0.4)
 })
 ```
 
-
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r}
+renderPlot({
+  ggplot(data, aes(x = creatinine_phosphokinase)) +
+    ggtitle('Fosfokinaza kreatynowa a wystąpienie zgonu') +
+    geom_histogram(data = data, fill = 'red', alpha = 0.4) +
+    geom_histogram(data = dead, fill = 'blue', alpha = 0.4)
+})
 ```
 
-
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{r}
+renderPlot({
+  ggplot(data, aes(x = ejection_fraction)) +
+    ggtitle('Frakcja wyrzutowa a wystąpienie zgonu') +
+    geom_histogram(data = data, fill = 'red', alpha = 0.4) +
+    geom_histogram(data = dead, fill = 'blue', alpha = 0.4)
+})
 ```
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-renderPlot({plot(pressure)})
+```{r}
+renderPlot({
+  ggplot(data, aes(x = high_blood_pressure)) +
+    ggtitle('Wysokie ciśnienie krwi a wystąpienie zgonu') +
+    geom_histogram(data = data, fill = 'red', alpha = 0.4) +
+    geom_histogram(data = dead, fill = 'blue', alpha = 0.4)
+})
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r}
+renderPlot({
+  ggplot(data, aes(x = platelets)) +
+    ggtitle('Płytki krwi a wystąpienie zgonu') +
+    geom_histogram(data = data, fill = 'red', alpha = 0.4) +
+    geom_histogram(data = dead, fill = 'blue', alpha = 0.4)
+})
+```
+
+```{r}
+renderPlot({
+  ggplot(data, aes(x = serum_creatinine)) +
+    ggtitle('Kreatynina a wystąpienie zgonu') +
+    geom_histogram(data = data, fill = 'red', alpha = 0.4) +
+    geom_histogram(data = dead, fill = 'blue', alpha = 0.4)
+})
+```
+
+```{r}
+renderPlot({
+  ggplot(data, aes(x = serum_sodium)) +
+    ggtitle('Sód a wystąpienie zgonu') +
+    geom_histogram(data = data, fill = 'red', alpha = 0.4) +
+    geom_histogram(data = dead, fill = 'blue', alpha = 0.4)
+})
+```
+
+```{r}
+renderPlot({
+  ggplot(data, aes(x = smoking)) +
+    ggtitle('Palenie a wystąpienie zgonu') +
+    geom_histogram(data = data, fill = 'red', alpha = 0.4) +
+    geom_histogram(data = dead, fill = 'blue', alpha = 0.4)
+})
+```
+
+```{r}
+renderPlot({
+  ggplot(data, aes(x = sex)) +
+    ggtitle('Płeć a wystąpienie zgonu') +
+    geom_histogram(data = data, fill = 'red', alpha = 0.4) +
+    geom_histogram(data = dead, fill = 'blue', alpha = 0.4)
+})
+```

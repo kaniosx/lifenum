@@ -35,3 +35,14 @@ model.diabetes.naiveBayes.getClassifier <- function (trainingSet) {
     y = trainingSet$class
   )
 }
+
+
+model.diabetes.naiveBayes.getPrediction <- function(trainingSet, testSet) {
+  classifier <- naiveBayes(
+    x = trainingSet[-ncol(trainingSet)],
+    y = trainingSet$class
+  )
+  
+  predict(classifier, newdata = testSet[-ncol(testSet)])
+}
+

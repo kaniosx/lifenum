@@ -1,5 +1,5 @@
 model.diabetes.knn.preprocessData <- function(data) {
-  data[,3:ncol(data)-1] <- as.integer(data == 'Yes')
+  data[4:ncol(data)-1] <- as.integer(data == 'Yes')
   data[2] <- lapply(data[2], function(x) as.integer(x == 'Male'))
   data[ncol(data)] <- lapply(data[ncol(data)], function(x) as.integer(x == 'Positive'))
   data
@@ -37,3 +37,14 @@ model.diabetes.knn.getConfusionMatrix <- function (dataset) {
 
   confusionMatrix
 }
+
+
+model.diabetes.knn.getPrediction <- function(trainingSet, testSet) {
+  knn(
+    train = trainingSet[,-ncol(trainingSet)],
+    test = testSet[,-ncol(testSet)],
+    cl = trainingSet[,ncol(trainingSet)],
+    k = 5
+  )
+}
+

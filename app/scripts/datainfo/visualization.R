@@ -22,7 +22,7 @@ visualization.updateVisualizationSelect <- function(session, inputDataset) {
 visualization.visualize <- function(data, x) {
   hist(
     data[,x],
-    main = paste('Histogram of ', x),
+    main = paste('Histogram zmiennej', x),
     xlab = x,
     col = 'orange'
   )

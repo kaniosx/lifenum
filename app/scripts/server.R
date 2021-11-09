@@ -9,12 +9,14 @@ source('scripts/model/diabetes/decision_tree_classification.R',       local = TR
 source('scripts/model/diabetes/naive_bayes.R',                        local = TRUE)
 source('scripts/model/diabetes/logistic_regression.R',                local = TRUE)
 source('scripts/model/diabetes/knn.R',                                local = TRUE)
+source('scripts/model/diabetes/roc.R',                                local = TRUE)
 source('scripts/model/diabetes/from_form.R',                          local = TRUE)
 source('scripts/model/diabetes/from_user_file.R',                     local = TRUE)
 source('scripts/model/heart_failure/decision_tree_classification.R',  local = TRUE)
 source('scripts/model/heart_failure/naive_bayes.R',                   local = TRUE)
 source('scripts/model/heart_failure/logistic_regression.R',           local = TRUE)
 source('scripts/model/heart_failure/knn.R',                           local = TRUE)
+source('scripts/model/heart_failure/roc.R',                           local = TRUE)
 source('scripts/model/heart_failure/from_form.R',                     local = TRUE)
 source('scripts/model/heart_failure/from_user_file.R',                local = TRUE)
 
@@ -23,6 +25,10 @@ library(caTools)
 library(class)
 library(rpart)
 library(e1071)
+library(rpart.plot)
+library(Przewodnik)
+library(plotROC)
+library(OptimalCutpoints)
 
 server <- function(input, output, session) {
   observe({
@@ -69,22 +75,22 @@ server <- function(input, output, session) {
         input$modelType,
         input$dataset
       )
-    }, caption = 'Confusion matrix')
+    }, caption = 'Macierz błędów')
   })
   
   observeEvent(input$checkFormEvent, {
     output$formTable <- renderTable({
       model.predictFromForm.getRow(input)
-    }, caption = 'Your data')
+    }, caption = 'Twoje dane')
 
     output$formScore <- renderText({
       prediction <- model.predictFromForm.getPredicition(input)
 
       if (prediction == 1) {
-        return('Warning! The answer is positive with prediction = 1!')
+        return('Uwaga! Odpowiedź jest pozytywna z predykcją = 1!')
       }
 
-      return ('Prediction is negative (0).')
+      return ('Predykcja jest negatywna (0).')
     })
   })
 
@@ -102,5 +108,11 @@ server <- function(input, output, session) {
         write.csv(data, file, row.names = FALSE)
       }
     )
+  })
+  
+  observeEvent(input$generateRocEvent, {
+    output$comparison <- renderPlot({
+      model.generateRoc(input$dataset, input$modelType)
+    })
   })
 }

@@ -23,7 +23,7 @@ model.diabetes.decisionTreeClassification.getConfusionMatrix <- function (datase
     formula = class ~ .,
     data = trainingSet
   )
-
+  
   yPred <- predict(classifier, newdata = testSet[,-ncol(testSet)])
 
   table(testSet$class, ifelse(yPred > 0.5, 1, 0))
@@ -35,4 +35,13 @@ model.diabetes.decisionTreeClassification.getClassifier <- function (trainingSet
     formula = class ~ .,
     data = trainingSet
   )
+}
+
+model.diabetes.decisionTreeClassification.getPrediction <- function(trainingSet, testSet) {
+  classifier <- rpart(
+    formula = class ~ .,
+    data = trainingSet
+  )
+  
+  predict(classifier, newdata = testSet[,-ncol(testSet)])
 }

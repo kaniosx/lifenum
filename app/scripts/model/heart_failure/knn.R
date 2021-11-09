@@ -37,3 +37,12 @@ model.heartFailure.knn.getConfusionMatrix <- function (dataset) {
 
   confusionMatrix
 }
+
+model.heartFailure.knn.getPrediction <- function(trainingSet, testSet) {
+  knn(
+    train = trainingSet[,-ncol(trainingSet)],
+    test = testSet[,-ncol(testSet)],
+    cl = trainingSet[,ncol(trainingSet)],
+    k = 5
+  )
+}

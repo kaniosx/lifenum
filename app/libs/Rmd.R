@@ -16,7 +16,7 @@ inclRmd <- function(path, r_env = parent.frame()) {
       stylesheet = "",
       encoding = encoding
     ) %>%
-    gsub("&lt;!--/html_preserve--&gt;","",.) %>%  ## knitr adds this
-    gsub("&lt;!--html_preserve--&gt;","",.) %>%   ## knitr adds this
+    gsub("&lt;!--/html_preserve--&gt;","",.) %>%
+    gsub("&lt;!--html_preserve--&gt;","",.) %>%
     HTML
 }

@@ -3,26 +3,160 @@ title: "diabetes"
 output: html_document
 ---
 
-Basic informations about the dataset:
+```{r}
+data <- read.csv('data/diabetes.csv', sep = ',')
+data[2] <- lapply(data[2], function(x) as.integer(x == 'Male'))
+data[4:ncol(data)-1] <- as.integer(data == 'Yes')
+data[ncol(data)] <- lapply(data[ncol(data)], function(x) as.integer(x == 'Positive'))
 
-Age of the patients distribution:
+diabetes <- data[data$class == 1,]
+```
+
+Podstawowe informacje o zbiorze danych:
+
+Sprawdźmy histogram wieku pacjentów oraz zaznaczoną na nim liczbą wyników pozytywnych:
+```{r}
+renderPlot({
+  ggplot(data, aes(x = Age)) +
+    ggtitle('Wiek a cukrzyca') +
+    geom_histogram(data = data, fill = 'red', alpha = 0.4) +
+    geom_histogram(data = diabetes, fill = 'blue', alpha = 0.4)
+})
+```
+
+Cukrzyca wśród kobiet:
 
 ```{r}
-
 renderPlot({
-  df <- data.frame(data.diabetesData$Age, data.diabetesData$class)
-
-  p <- ggplot(df, aes(x=Age, color=class)) +
-    geom_histogram(fill="orange", alpha=0.5, position="identity") +
-    theme(legend.position="top")
-  p
+  ggplot(data, aes(x = Gender)) +
+    ggtitle('Cukrzyca wśród kobiet') +
+    geom_histogram(data = data[data$Gender == 0,], fill = 'red', alpha = 0.4) +
+    geom_histogram(data = diabetes[diabetes$Gender == 0,], fill = 'blue', alpha = 0.4)
 })
-
 ```
 
-Age
+Cukrzyca wśród mężczyzn:
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r}
+renderPlot({
+  ggplot(data, aes(x = Gender)) +
+    ggtitle('Cukrzyca wśród mężczyzn') +
+    geom_histogram(data = data[data$Gender == 1,], fill = 'red', alpha = 0.4) +
+    geom_histogram(data = diabetes[diabetes$Gender == 1,], fill = 'blue', alpha = 0.4)
+})
 ```
-agulegjealigaelijgilae
+
+Podobnie skategoryzujmy inne dane. Przyjmują one wartości tak lub nie.
+
+```{r}
+renderPlot({
+  ggplot(data, aes(x = Polyuria)) +
+    ggtitle('Polyuria a cukrzyca') +
+    geom_histogram(data = data, fill = 'red', alpha = 0.4) +
+    geom_histogram(data = diabetes, fill = 'blue', alpha = 0.4)
+})
+```
+
+```{r}
+renderPlot({
+  ggplot(data, aes(x = Polydipsia)) +
+    ggtitle('Polydipsja a cukrzyca') +
+    geom_bar(aes(fill = class), position = 'fill')
+})
+```
+
+```{r}
+renderPlot({
+  ggplot(data, aes(x = sudden.weight.loss)) +
+    ggtitle('Nagła utrata wagi a cukrzyca') +
+    geom_bar(aes(fill = class), position = 'fill')
+})
+```
+
+```{r}
+renderPlot({
+  ggplot(data, aes(x = weakness)) +
+    ggtitle('Osłabienie a cukrzyca') +
+    geom_bar(aes(fill = class), position = 'fill')
+})
+```
+
+```{r}
+renderPlot({
+  ggplot(data, aes(x = Polyphagia)) +
+    ggtitle('Polifagia a cukrzyca') +
+    geom_bar(aes(fill = class), position = 'fill')
+})
+```
+
+```{r}
+renderPlot({
+  ggplot(data, aes(x = Genital.thrush)) +
+    ggtitle('Pleśniawki narządów płciowych a cukrzyca') +
+    geom_bar(aes(fill = class), position = 'fill')
+})
+```
+
+```{r}
+renderPlot({
+  ggplot(data, aes(x = visual.blurring)) +
+    ggtitle('Rozmyte widzenie a cukrzyca') +
+    geom_bar(aes(fill = class), position = 'fill')
+})
+```
+
+```{r}
+renderPlot({
+  ggplot(data, aes(x = Itching)) +
+    ggtitle('Swędzenie a cukrzyca') +
+    geom_bar(aes(fill = class), position = 'fill')
+})
+```
+
+```{r}
+renderPlot({
+  ggplot(data, aes(x = Irritability)) +
+    ggtitle('Drażliwość a cukrzyca') +
+    geom_bar(aes(fill = class), position = 'fill')
+})
+```
+
+```{r}
+renderPlot({
+  ggplot(data, aes(x = delayed.healing)) +
+    ggtitle('Opóźnione gojenie a cukrzyca') +
+    geom_bar(aes(fill = class), position = 'fill')
+})
+```
+
+```{r}
+renderPlot({
+  ggplot(data, aes(x = partial.paresis)) +
+    ggtitle('Częściowy niedowład a cukrzyca') +
+    geom_bar(aes(fill = class), position = 'fill')
+})
+```
+
+```{r}
+renderPlot({
+  ggplot(data, aes(x = muscle.stiffness)) +
+    ggtitle('Sztywność mięśni a cukrzyca') +
+    geom_bar(aes(fill = class), position = 'fill')
+})
+```
+
+```{r}
+renderPlot({
+  ggplot(data, aes(x = Alopecia)) +
+    ggtitle('Łysienie a cukrzyca') +
+    geom_bar(aes(fill = class), position = 'fill')
+})
+```
+
+```{r}
+renderPlot({
+  ggplot(data, aes(x = Obesity)) +
+    ggtitle('Otyłość a cukrzyca') +
+    geom_bar(aes(fill = class), position = 'fill')
+})
+```
