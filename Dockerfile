@@ -6,6 +6,8 @@ RUN apt-get update && apt-get install -y \
     pandoc \
     pandoc-citeproc \
     libcurl4-gnutls-dev \
+    libxml2-dev \
+    libssl-dev \
     libcairo2-dev \
     libxt-dev \
     xtail \
@@ -17,7 +19,8 @@ RUN wget --no-verbose https://download3.rstudio.org/ubuntu-14.04/x86_64/VERSION 
     gdebi -n ss-latest.deb && \
     rm -f version.txt ss-latest.deb && \
     . /etc/environment && \
-    R -e "install.packages(c('shiny', 'rmarkdown', 'shinydashboard', 'ggplot2', 'DT', 'caTools', 'dplyr', 'knitr', 'htmltools', 'htmlwidgets', 'class', 'rpart', 'e1071', 'Przewodnik', 'plotROC', 'OptimalCutpoints'), repos='$MRAN')" && \
+    R -e "install.packages(c('shiny', 'rmarkdown', 'shinydashboard', 'ggplot2', 'DT', 'caTools', 'dplyr', 'knitr', 'htmltools', 'htmlwidgets', 'class', 'rpart', 'rpart.plot', 'e1071', 'devtools', 'OptimalCutpoints'), repos='$MRAN')" && \
+    R -e "devtools::install_github('sachsmc/plotROC')" && \
     cp -R /usr/local/lib/R/site-library/shiny/examples/* /srv/shiny-server/ && \
     chown shiny:shiny /var/lib/shiny-server
 

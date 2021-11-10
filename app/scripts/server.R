@@ -26,7 +26,6 @@ library(class)
 library(rpart)
 library(e1071)
 library(rpart.plot)
-library(Przewodnik)
 library(plotROC)
 library(OptimalCutpoints)
 
