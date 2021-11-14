@@ -35,9 +35,15 @@ server <- function(input, output, session) {
   })
   
   observeEvent(input$visualizeEvent, {
-    output$visualization <- renderPlot({ 
+    output$visualization <- renderPlot({
+      data <- rawdata.load(input$dataset)
+      
+      if (input$dataset == 'diabetes') {
+        data <- model.diabetes.knn.preprocessData(data)
+      }
+      
       visualization.visualize(
-        rawdata.load(input$dataset),
+        data,
         input$visualizationX
       )
     })

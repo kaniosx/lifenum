@@ -28,7 +28,7 @@ model.view.userDataPanel <- tabPanel(
   title = 'Importuj dane testowe',
   fileInput(
     'userFile',
-    'Załaduj swój plii CSV',
+    'Załaduj swój plik CSV',
     multiple = FALSE,
     accept = c(
       'text/csv',

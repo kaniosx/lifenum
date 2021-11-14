@@ -16,7 +16,7 @@ renderPlot({
   ggplot(data, aes(x = age)) +
     ggtitle('Wiek a wystąpienie zgonu') +
     geom_histogram(data = data, fill = 'red', alpha = 0.4) +
-    geom_histogram(data = dead, fill = 'blue', alpha = 0.4)
+    geom_histogram(data = dead, fill = 'blue', alpha = 0.4) +
 })
 ```
 
